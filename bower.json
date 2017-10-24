@@ -1,0 +1,26 @@
+{
+  "name": "netherwallet",
+  "description": "An electron application from  myetherwallet",
+  "main": "index.js",
+  "authors": [
+    "feiin"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "etherwallet",
+    "electron"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "assets/components/"
+  ],
+  "dependencies": {
+    "web3": "^0.19.0"
+  },
+  "private": true
+}

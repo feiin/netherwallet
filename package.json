@@ -1,0 +1,19 @@
+{
+  "name": "netherwallet",
+  "version": "1.0.0",
+  "description": "An electron application from  myetherwallet",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js"
+  },
+  "keywords": [
+    "etherwallet",
+    "electron"
+  ],
+  "author": "feiin",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^1.7.9",
+    "ethereumjs-util": "^5.1.2"
+  }
+}
