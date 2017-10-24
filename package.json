@@ -1,7 +1,7 @@
 {
   "name": "netherwallet",
   "version": "1.0.0",
-  "description": "An electron application from  myetherwallet",
+  "description": "An electron application for  myetherwallet",
   "main": "index.js",
   "scripts": {
     "start": "electron index.js"
