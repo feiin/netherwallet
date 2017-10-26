@@ -1,0 +1,27 @@
+<div class="sidebar">
+  <nav class="sidebar-nav">
+    <ul class="nav">
+      <li class="nav-title">
+        wallet
+      </li>
+      <li ng-repeat="menu in menus" class="nav-item {{menu.children.length>0?'nav-dropdown':''}}" ng-class="{open: $state.includes(menu.path)}">
+        <a ng-if="menu.children.length" ng-class="{active: $state.includes(menu.path)}" class="nav-link nav-dropdown-toggle" href="#">
+          <i class="fa {{menu.icon}}"></i>
+          {{menu.name}}
+        </a>
+        <a ng-if="menu.children.length==0" ui-sref="{{menu.path}}" ui-sref-active="active" class="nav-link" href="{{menu.href}}">
+          <i class="fa {{menu.icon}}"></i>
+          {{menu.name}}
+        </a>
+        <ul class="nav-dropdown-items" ng-if="menu.children.length">
+          <li class="nav-item" ng-repeat="cMenu in menu.children">
+            <a ui-sref="{{cMenu.path}}" ui-sref-active="active" class="nav-link" href="{{cMenu.href}}">
+              <i class="fa {{cMenu.icon}}"></i>
+              {{cMenu.name}}
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>

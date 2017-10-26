@@ -11,13 +11,13 @@ class MyEtherWalletWindow {
 
     createWindow() {
         this.walletWindow = new BrowserWindow({
-            width: 800,
-            height: 600,
+            width: 1000,
+            height: 720,
             title:'MyEtherWallet App'
         });
         
         this.walletWindow.loadURL(url.format({
-            pathname: path.join(__dirname, '../views/index.html'),
+            pathname: path.join(__dirname, '../assets/index.html'),
             protocol: 'file:',
             slashes: true
         }));

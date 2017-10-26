@@ -1,0 +1,23 @@
+[
+    {
+        "name": "Dashboard",
+        "path": "panel.dashboard",
+        "href": "/panel/dashboard",
+        "icon": "icon-speedometer",
+        "children": []
+    },
+    {
+        "name": "Ether&Tokens",
+        "path": "panel.ether",
+        "href": "/panel/ether",
+        "icon": "fa-btc",
+        "children": [
+          {
+            "name": "ddd",
+            "path": "panel.ether.tokens",
+            "href": "/panel/ether.tokens",
+            "icon": "fa-btc"
+          }
+        ]
+      }
+]
