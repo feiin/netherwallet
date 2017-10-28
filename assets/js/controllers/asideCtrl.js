@@ -1,6 +1,5 @@
 (function () {
     function initPage ($scope, $http) {
-         
         $http.get("menu.json")
         .then(function (result) {
             $scope.menus = result.data;

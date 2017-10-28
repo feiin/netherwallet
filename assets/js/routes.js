@@ -74,4 +74,27 @@ angular
       }]
     }
   })
+  .state('panel.ether', {
+    url: '/ether',
+    templateUrl: 'views/ether/index.html',
+    //page title goes here
+    ncyBreadcrumb: {
+      label: 'Ether',
+    },
+    controller: "etherWalletController",
+    //page subtitle goes here
+    resolve: {
+      loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+        // you can lazy load controllers
+        return $ocLazyLoad.load({
+          serie: true,
+          cache: false,
+          files: [
+            'js/controllers/ether/etherCtrl.js',
+            'components/web3/dist/web3.min.js'
+          ]
+        });
+      }]
+    }
+  })
 }]);

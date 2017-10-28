@@ -12,12 +12,6 @@
         "href": "/panel/ether",
         "icon": "fa-btc",
         "children": [
-          {
-            "name": "ddd",
-            "path": "panel.ether.tokens",
-            "href": "/panel/ether.tokens",
-            "icon": "fa-btc"
-          }
         ]
       }
 ]
