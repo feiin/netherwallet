@@ -35,7 +35,8 @@
     "oclazyload": "^1.1.0",
     "popper.js": "^1.12.5",
     "simple-line-icons": "^2.4.1",
-    "toastr": "^2.1.2"
+    "toastr": "^2.1.2",
+    "bignumber.js": "^4.1.0"
   },
   "private": true
 }

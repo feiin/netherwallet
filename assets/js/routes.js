@@ -90,8 +90,10 @@ angular
           serie: true,
           cache: false,
           files: [
-            'js/controllers/ether/etherCtrl.js',
-            'components/web3/dist/web3.min.js'
+            'components/web3/dist/web3.min.js',   
+            'components/bignumber.js/bignumber.min.js',                        
+            'js/controllers/ether/etherCtrl.js'
+            
           ]
         });
       }]

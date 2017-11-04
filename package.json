@@ -4,7 +4,8 @@
   "description": "An electron application for  myetherwallet",
   "main": "index.js",
   "scripts": {
-    "start": "electron index.js"
+    "start": "electron index.js",
+    "rebuild": "electron-rebuild -f -w etherscan-api"
   },
   "keywords": [
     "etherwallet",
@@ -14,6 +15,10 @@
   "license": "MIT",
   "dependencies": {
     "electron": "^1.7.9",
-    "ethereumjs-util": "^5.1.2"
+    "ethereumjs-util": "^5.1.2",
+    "request": "^2.83.0"
+  },
+  "devDependencies": {
+    "electron-rebuild": "^1.6.0"
   }
 }

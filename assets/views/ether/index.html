@@ -41,18 +41,31 @@
           </form>
         </div>
       </div>
-     
+
     </div>
     <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="m-0 h6">Tokens</h3>
-          </div>
-          <div class="card-body">
-             
-          </div>
+      <div class="card">
+        <div class="card-header">
+          <h3 class="m-0 h6">Tokens</h3>
         </div>
-       
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Token</th>
+                <th>Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="token in myEtherWallet.tokens">
+                  <td>{{token.name}}</td>
+                  <td>{{token.balance}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
+
+    </div>
   </div>
 </div>
