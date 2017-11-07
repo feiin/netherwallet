@@ -3,7 +3,7 @@
     const ethereumjsUtil = require('ethereumjs-util');
     const EtherscanApi = require('./js/etherscan-api.js');
     const etherscanApi = new EtherscanApi('WDS29B49XSEH8DKJ8I712JKVJZHUPUDNBI');
-    
+    const ethTokens = require('./tokens/ethtokens.json');
     angular
         .module('app')
         .controller('etherWalletController', etherWalletController);
@@ -55,26 +55,31 @@
                 });
 
                 $scope.myEtherWallet.tokens = [];
-                var gnxToken = {
-                    name: 'GNX',
-                    contractAddress: '0x6ec8a24cabdc339a06a172f8223ea557055adaa5',
-                    decimal: 9,
-                    balance:'loading'
-                }
-                $scope.myEtherWallet.tokens.push(gnxToken);
-                this.setToken(gnxToken);
+
+                //TODO: only show my tokens
+                ethTokens.forEach((token) => {
+                    this.addToken(token);
+                });
+
+            }
+
+            addToken(token) {
+                token.balance = 'loading';
+                token.name = token.symbol;
+                $scope.myEtherWallet.tokens.push(token);
+                this.setToken(token);
             }
 
             setToken(token) {
 
-                
+
                 etherscanApi
                     .tokenbalance(this.address, token.contractAddress)
                     .then((data) => {
                         var balance = new BigNumber(data.result).div(new BigNumber(10).pow(token.decimal)).toString();
                         token.balance = balance;
                         $scope.$apply();
-                        
+
                     });
             }
         }

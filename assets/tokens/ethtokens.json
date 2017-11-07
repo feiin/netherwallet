@@ -1,0 +1,26 @@
+[
+    {
+        "contractAddress": "0x6ec8a24cabdc339a06a172f8223ea557055adaa5",
+        "symbol": "GNX",
+        "decimal": 9,
+        "type": "default"
+    },
+    {
+        "contractAddress": "0xa74476443119A942dE498590Fe1f2454d7D4aC0d",
+        "symbol": "GNT",
+        "decimal": 18,
+        "type": "default"
+    },
+    {
+        "contractAddress": "0x0D8775F648430679A709E98d2b0Cb6250d2887EF",
+        "symbol": "BAT",
+        "decimal": 18,
+        "type": "default"
+    },
+    {
+        "contractAddress": "0x4470BB87d77b963A013DB939BE332f927f2b992e",
+        "symbol": "ADX",
+        "decimal": 4,
+        "type": "default"
+    }
+]
