@@ -46,6 +46,63 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
+          <h3 class="m-0 h6">Transfer</h3>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label text-right">To Address:</label>
+              <div class="col-sm-10">
+                <input type="text"  class="form-control w-100" ng-model="myEtherWallet.tx.toAddress">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="Balance" class="col-sm-2 col-form-label text-right">Amount:</label>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <input type="text"  class="form-control"
+                    ng-model="myEtherWallet.tx.amount">
+                  <div class="input-group-addon">ETH</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="Balance" class="col-sm-2 col-form-label text-right">Gas Limit:</label>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <input type="text"  class="form-control" id="Gas" name="TransferBalance"
+                    ng-model="myEtherWallet.tx.gasLimit">
+                  <div class="input-group-addon">Gas</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <p>
+                <button type="button" class="btn btn-info btn-block" ng-click="genTx()" >Generate Transaction</button>
+              </p>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-6">
+                <label>Raw Transaction:</label>
+                <textarea  class="form-control w-100" ng-model="rawTransaction"></textarea>
+              </div>
+              <div class="col-sm-6">
+                <label>Signed Transaction:</label>
+                <textarea   class="form-control w-100" ng-model="signedTransaction"></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <p>
+                <button type="button" class="btn btn-info btn-block" id="btnSendTx" >Send Transaction</button>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
           <h3 class="m-0 h6">Tokens</h3>
         </div>
         <div class="card-body">

@@ -24,7 +24,7 @@ class NodeBase {
     }
 
     sendRawTransaction(rawTx, callback) {
-        throw new Error('need override sendRawTransaction');
+        this.web3.eth.sendRawTransaction(rawTx, callback);
     }
 
     getEstimatedGas(txObj, callback) {
@@ -34,13 +34,11 @@ class NodeBase {
     tokenbalance(addr, token, callback) {
 
         var tokenContract = this.web3.eth.contract(tokenAbi).at(token.contractAddress);
-        console.log(addr);
         tokenContract.balanceOf(addr, (err, tokenBalance) => {
             if (err) {
                 return callback(err);
             }
             var balance = new BigNumber(tokenBalance).div(new BigNumber(10).pow(token.decimal)).toString();
-
             callback(null, balance);
         })
     }
