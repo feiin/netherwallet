@@ -76,27 +76,43 @@
                 </div>
               </div>
             </div>
+            <div class="form-group row">
+              <label for="Data" class="col-sm-2 col-form-label text-right">data:</label>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <input type="text"  class="form-control" id="Data" name="Data"
+                    ng-model="myEtherWallet.tx.data">
+                  <div class="input-group-addon">data</div>
+                </div>
+              </div>
+            </div>
             <div class="form-group">
               <p>
                 <button type="button" class="btn btn-info btn-block" ng-click="genTx()" >Generate Transaction</button>
               </p>
             </div>
-            <div class="form-group row">
+            <div class="form-group row" ng-if="showSendTransaction">
               <div class="col-sm-6">
                 <label>Raw Transaction:</label>
-                <textarea  class="form-control w-100" ng-model="rawTransaction"></textarea>
+                <textarea  class="form-control w-100" ng-model="genTxData.rawJson"></textarea>
               </div>
               <div class="col-sm-6">
                 <label>Signed Transaction:</label>
-                <textarea   class="form-control w-100" ng-model="signedTransaction"></textarea>
+                <textarea   class="form-control w-100" ng-model="genTxData.signedTx"></textarea>
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-if="showSendTransaction">
               <p>
-                <button type="button" class="btn btn-info btn-block" id="btnSendTx" >Send Transaction</button>
+                <button type="button" class="btn btn-info btn-block" ng-click="sendTx()" id="btnSendTx" >Send Transaction</button>
               </p>
             </div>
           </form>
+          <div ng-if="showTxHash" class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success!</strong> {{txHash}} <a href="https://ropsten.etherscan.io/tx/{{txHash}}" target="_blank">view tx</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

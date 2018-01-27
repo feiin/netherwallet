@@ -16,7 +16,7 @@
     function etherWalletController($scope, $http) {
         var vm = this;
 
-        $scope.myEtherWallet = {tx:{}};
+        $scope.myEtherWallet = { tx: {} };
         $scope.myEtherWallet.privateKey = null;
         $scope.myEtherWallet.show = false;
 
@@ -33,20 +33,43 @@
                 }
             }
         }
-        $scope.genTx = function() {
-            if($scope.myEtherWallet.tx) {
+        $scope.genTx = function () {
+            if ($scope.myEtherWallet.tx) {
                 var tx = $scope.myEtherWallet.tx;
-                console.log(tx);
-                $scope.myEtherWallet.wallet.sendTransaction(tx.toAddress, tx.gasLimit, tx.amount,(error, hash) => {
-                    console.log("sendRawTransaction",error, hash);
 
+                $scope.myEtherWallet.wallet.genTransaction(tx.toAddress, tx.gasLimit, tx.amount, (error, genTxData) => {
+
+                    $scope.showTxHash = false;
+                    $scope.txHash = null;
+                    $scope.showSendTransaction = true;
+                    $scope.genTxData = {
+                        rawJson: JSON.stringify(genTxData.rawJson),
+                        signedTx: genTxData.signedTx
+                    };
+                    // $scope.$apply();
+                })
+
+            }
+        }
+
+        $scope.sendTx = function () {
+            if ($scope.showSendTransaction && $scope.genTxData.signedTx) {
+                $scope.myEtherWallet.wallet.sendTransaction($scope.genTxData.signedTx, (error, txHash) => {
+                    if(error) {
+                        toastr.error(error.toString());
+                        return;
+                    }
+                    $scope.showTxHash = true;
+                    $scope.txHash = txHash;
+                    $scope.$apply();
                 });
+
             }
         }
 
         class MyWallet {
 
-        
+
             constructor(privateKey, address) {
                 this.privateKey = privateKey;
                 this.wallet = null;
@@ -87,15 +110,17 @@
                 });
             }
 
-            sendTransaction(to, gasLimit, amount, cb) {
-                const privateKey = Buffer.from(this.privateKey, 'hex');
+            genTransaction(to, gasLimit, amount, cb) {
+                const privateKey = ethereumjsUtil.toBuffer(this.privateKey);
                 gasLimit = '0x' + new BigNumber(gasLimit).toString(16);
                 var amountWei = this.ethNode.web3.toWei(amount, 'ether');
                 amount = '0x' + new BigNumber(amountWei).toString(16);
                 const gasPrice = '0x' + this.ethNode.web3.eth.gasPrice.toString(16);
+                var count = this.ethNode.web3.eth.getTransactionCount(this.address);
+                var nonce = '0x' + new BigNumber(count).toString(16);
 
                 const txParams = {
-                    nonce: '0x00',
+                    nonce: nonce,
                     gasPrice: gasPrice,
                     gasLimit: gasLimit,
                     to: to,
@@ -104,14 +129,15 @@
                     // EIP 155 chainId - mainnet: 1, ropsten: 3
                     chainId: 3
                 }
-
                 const tx = new EthereumTx(txParams);
                 tx.sign(privateKey);
                 const serializedTx = tx.serialize();
-                console.log(tx, serializedTx);
-                this.ethNode.sendRawTransaction('0x'+serializedTx.toString('hex'), cb);
+                var rawTx = '0x' + serializedTx.toString('hex');
+                cb(null, { rawJson: txParams, signedTx: rawTx });
+            }
 
-
+            sendTransaction(rawTx, cb) {
+                this.ethNode.sendRawTransaction(rawTx, cb);
             }
         }
     }
