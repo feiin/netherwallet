@@ -3,9 +3,11 @@ const NodeBase = require('./nodeBase');
 class RopstenInfura extends NodeBase {
     constructor(context) {
         context.config = {
-            ServerUrl:'https://ropsten.infura.io/mew'
+            serverUrl:'https://ropsten.infura.io/mew',
+            explorerTX:'https://ropsten.etherscan.io/tx/'
         }
         super(context);
+        this.networkId = 3;
     }
 }
 

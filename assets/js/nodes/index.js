@@ -27,5 +27,4 @@ function loadDirectory(exports, directory) {
     return exports;
 }
 
-console.log(__dirname);
 loadDirectory(exports, __dirname);

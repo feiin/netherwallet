@@ -19,16 +19,29 @@
         $scope.myEtherWallet = { tx: {} };
         $scope.myEtherWallet.privateKey = null;
         $scope.myEtherWallet.show = false;
+        $scope.nodes = [{
+            "id":"Myether",
+            "name":"[ETH]myetherapi.com"
+        },{
+            "id":"RopstenInfura",
+            "name":"[Ropsten]infura.io"
+        }]
+
+        $scope.apiNode = '';
 
         $scope.unlockWallet = function () {
             var privateKey = $scope.myEtherWallet.privateKey;
+            if(!$scope.apiNode) {
+                toastr.error('请选择节点');
+                return;
+            }
             if (privateKey) {
 
                 var privBuff = new Buffer(privateKey, 'hex');
                 if (ethereumjsUtil.isValidPrivate(privBuff)) {
                     var address = ethereumjsUtil.privateToAddress(privBuff);
                     // address = ethereumjsUtil.addHexPrefix(address);
-                    $scope.myEtherWallet.wallet = new MyWallet(privBuff, address);
+                    $scope.myEtherWallet.wallet = new MyWallet(privBuff, address, $scope.apiNode);
                     $scope.myEtherWallet.show = true;
                 }
             }
@@ -62,6 +75,8 @@
                     $scope.showTxHash = true;
                     $scope.txHash = txHash;
                     $scope.$apply();
+                    toastr.success('send transaction success!');
+                    $scope.myEtherWallet.wallet.setBalance();
                 });
 
             }
@@ -70,11 +85,12 @@
         class MyWallet {
 
 
-            constructor(privateKey, address) {
+            constructor(privateKey, address, nodeName) {
                 this.privateKey = privateKey;
                 this.wallet = null;
                 this.address = ethereumjsUtil.bufferToHex(address);
-                this.ethNode = new nodes['RopstenInfura']({ Web3: Web3, $http: $http });
+                this.ethNode = new nodes[nodeName]({ Web3: Web3, $http: $http });
+                this.explorerTX = this.ethNode.explorerTX;
                 this.init();
 
 
@@ -110,6 +126,13 @@
                 });
             }
 
+            setBalance() {
+                this.ethNode.getBalance(this.address, (error, balance) => {
+                    $scope.myEtherWallet.balance = balance;
+                    $scope.$apply();
+                });
+            }
+
             genTransaction(to, gasLimit, amount, cb) {
                 const privateKey = ethereumjsUtil.toBuffer(this.privateKey);
                 gasLimit = '0x' + new BigNumber(gasLimit).toString(16);
@@ -118,7 +141,7 @@
                 const gasPrice = '0x' + this.ethNode.web3.eth.gasPrice.toString(16);
                 var count = this.ethNode.web3.eth.getTransactionCount(this.address);
                 var nonce = '0x' + new BigNumber(count).toString(16);
-
+                
                 const txParams = {
                     nonce: nonce,
                     gasPrice: gasPrice,
@@ -127,7 +150,7 @@
                     value: amount,
                     data: null,
                     // EIP 155 chainId - mainnet: 1, ropsten: 3
-                    chainId: 3
+                    chainId: this.ethNode.networkId
                 }
                 const tx = new EthereumTx(txParams);
                 tx.sign(privateKey);

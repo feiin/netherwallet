@@ -1,5 +1,5 @@
 # netherwallet
-An electron.js application for  myetherwallet
+An electron.js application for  ether wallet
 
 
 
@@ -16,4 +16,8 @@ npm start
 ![](./previews/2-1.png)
 
 ## API
-api: https://www.myetherapi.com/
+- https://github.com/ethereum/wiki/wiki/JSON-RPC
+
+## Nodes
+- https://ropsten.infura.io/
+- https://www.myetherapi.com/

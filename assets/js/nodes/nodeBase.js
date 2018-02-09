@@ -5,7 +5,8 @@ class NodeBase {
         this.context = context;
         this.$http = context.$http;
         var web3 = this.web3 = new context.Web3();
-        web3.setProvider(new web3.providers.HttpProvider(this.context.config.ServerUrl));
+        web3.setProvider(new web3.providers.HttpProvider(this.context.config.serverUrl));
+        this.explorerTX  = this.context.config.explorerTX;
     }
 
     getBalance(addr, callback) {
