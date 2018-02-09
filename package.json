@@ -5,22 +5,24 @@
   "main": "index.js",
   "scripts": {
     "start": "electron index.js",
-    "rebuild": "electron-rebuild -f -w etherscan-api"
+    "releaseMac": "node_modules/.bin/electron-builder -m",
+    "releaseWin": "node_modules/.bin/electron-builder -w"
   },
   "keywords": [
     "etherwallet",
     "electron"
   ],
+  "postinstall": "electron-builder install-app-deps",
   "author": "feiin",
   "license": "MIT",
   "dependencies": {
-    "electron": "^1.7.9",
     "ethereumjs-tx": "^1.3.3",
     "ethereumjs-util": "^5.1.2",
     "human-standard-token-abi": "^1.0.2",
     "request": "^2.83.0"
   },
   "devDependencies": {
-    "electron-rebuild": "^1.6.0"
+    "electron": "^1.7.9",
+    "electron-builder": "^19.56.0"
   }
 }
