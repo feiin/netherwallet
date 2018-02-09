@@ -22,7 +22,7 @@ class MyEtherWalletWindow {
             slashes: true
         }));
 
-        this.walletWindow.openDevTools();
+        //this.walletWindow.openDevTools();
         
     }
 
